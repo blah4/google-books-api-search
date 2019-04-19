@@ -3,24 +3,22 @@ window.addEventListener('DOMContentLoaded', (event) => {
     const button = document.querySelector('button');
     const booksList = document.getElementById('books-list');
 
-    const renderBooks = (book) => {
-        
+    const renderBooks = (book) => {        
         let li = document.createElement('li');        
         let col = document.createElement('div');
         let singleBookRow = document.createElement('div');        
-        let bookTitlee = document.createElement('h2');
+        let bookTitle = document.createElement('h2');
         let bookAuthors = document.createElement('h3');
         let bookDescription = document.createElement('p');
-        let bookThumbnail = document.createElement('img');
-        
+        let bookThumbnail = document.createElement('img');      
 
-        bookTitlee.textContent = book.volumeInfo.title;
+        bookTitle.textContent = book.volumeInfo.title;
         bookAuthors.textContent = book.volumeInfo.authors;
         bookDescription.textContent = book.volumeInfo.description ? book.volumeInfo.description : " Sorry no description";
         bookThumbnail.src = book.volumeInfo.imageLinks ? 
             book.volumeInfo.imageLinks.thumbnail : "./img/nopicture.gif"
         
-        col.appendChild(bookTitlee);
+        col.appendChild(bookTitle);
         col.appendChild(bookAuthors);
         col.appendChild(bookDescription);
         singleBookRow.appendChild(bookThumbnail);
@@ -36,7 +34,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
     }
 
     const prefomSearch = () => {
-
         if(input.value.length === 0) {
             alert('Please enter some book');
         } else {
@@ -47,7 +44,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
             fetch(searchURI)
             .then(resp => resp.json())
             .then(resp => {
-                console.log(resp);
                 return resp.items.map(book => renderBooks(book))   
             } )   
             .catch((err) => {
